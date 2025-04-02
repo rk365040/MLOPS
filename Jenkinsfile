@@ -8,7 +8,16 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                checkout scm
+                script {
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: '*/main']],  // Replace 'main' with your branch name if different
+                        userRemoteConfigs: [[
+                            url: 'https://github.com/rk365040/MLOPS.git',
+                            credentialsId: 'your-github-credentials-id'  // Add your Jenkins credentials ID for GitHub
+                        ]]
+                    ])
+                }
             }
         }
 
@@ -22,10 +31,10 @@ pipeline {
             }
         }
 
-        stage('Run SageMaker Notebook Script') {
+        stage('Run SageMaker Script') {
             steps {
                 script {
-                    sh 'python3 create_and_run_notebook.py'
+                    sh 'source venv/bin/activate && python3 create_and_run_notebook.py'
                 }
             }
         }
