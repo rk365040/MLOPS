@@ -15,6 +15,7 @@ notebook_name = "mlops_activity3.ipynb"
 # Code to be inserted into the notebook
 notebook_code = """\
 # Use the previously prepared data
+!wget https://raw.githubusercontent.com/manifoldailearning/mlops-with-aws-datascientists/main/Section-13-Feature-Engineering/Dataset/bank-additional-full.csv --no-check-certificate
 from sagemaker import Session
 import sagemaker
 import boto3
